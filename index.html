@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Relógio Digital com Data</title>
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      background: linear-gradient(135deg, #000000, #000000, #ffffff);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Share Tech Mono', monospace;
+    }
+
+    .digital-clock {
+      width: 360px;
+      height: 200px;
+      background: #111111d0;
+      color: #ffffff;
+      border-radius: 16px;
+      border: 3px solid #585858;
+      box-shadow:
+        0 0 20px #ffffff,
+        0 0 40px rgba(255, 255, 255, 0.5),
+        0 0 80px rgba(255, 255, 255, 0.3);
+      text-shadow:
+        0 0 5px #ff0000,
+        0 0 10px #ff000088,
+        0 0 20px #ff0505b2;
+      transition: all 0.3s ease-in-out;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 10px;
+    }
+
+    .digital-clock:hover {
+      transform: scale(1.03);
+      box-shadow:
+        0 0 30px #fbffff,
+        0 0 60px rgba(255, 255, 255, 0.6),
+        0 0 100px rgba(255, 255, 255, 0.4);
+    }
+
+    .time {
+      font-size: 3.5rem;
+      letter-spacing: 2px;
+      margin-bottom: 10px;
+    }
+
+    .date {
+      font-size: 1.3rem;
+      color: #eeeeee;
+    }
+  </style>
+</head>
+<body>
+  <div class="digital-clock">
+    <div class="time" id="clock">00:00:00</div>
+    <div class="date" id="date">Carregando data...</div>
+  </div>
+
+  <script>
+    function updateDigitalClock() {
+      const now = new Date();
+
+      // Horário
+      const hours = String(now.getHours()).padStart(2, '0');
+      const minutes = String(now.getMinutes()).padStart(2, '0');
+      const seconds = String(now.getSeconds()).padStart(2, '0');
+      document.getElementById('clock').textContent = `${hours}:${minutes}:${seconds}`;
+
+      // Data com dia da semana
+      const diasSemana = ['Domingo', 'Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado'];
+      const diaSemana = diasSemana[now.getDay()];
+      const dia = String(now.getDate()).padStart(2, '0');
+      const mes = String(now.getMonth() + 1).padStart(2, '0');
+      const ano = now.getFullYear();
+
+      const dataFormatada = `${diaSemana}, ${dia}/${mes}/${ano}`;
+      document.getElementById('date').textContent = dataFormatada;
+    }
+
+    setInterval(updateDigitalClock, 1000);
+    updateDigitalClock();
+  </script>
+</body>
+</html>
